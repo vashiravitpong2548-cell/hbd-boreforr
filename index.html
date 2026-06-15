@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD นะคุณคนคุย 🥰</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #ff758f;
+        }
+
+        #noBtn {
+            background-color: #ccc;
+            color: #333;
+            position: absolute;
+        }
+
+        /* หน้าเฉลยความหวาน */
+        .success-screen {
+            display: none;
+        }
+
+        .success-screen h2 {
+            color: #ff4d6d;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .heart {
+            font-size: 50px;
+            animation: beat 0.6s infinite alternate;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div id="questionStage">
+            <h1>🎉 Happy Birthday นะคะ! 🎂</h1>
+            <p>วันเกิดปีนี้... มีแฟนหรือยัง? <br>แล้วคนนั้นใช่เราป่ะ? 😳</p>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="showSweetWords()">ใช่ดิ / เป็นแฟนกัน</button>
+                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">ไม่ใช่</button>
+            </div>
+        </div>
+
+        <div id="sweetStage" class="success-screen">
+            <div class="heart">💖</div>
+            <h2>เย้! พูดแล้วคืนคำไม่ได้นะ</h2>
+            <p>สุขสันต์วันเกิดนะคุณคนโปรด ขอบคุณที่เข้ามาเป็นเรื่องน่ารักๆ ในชีวิตเรานะ ขอให้มีความสุขมากๆ อยู่บ่นเราไปนานๆ เลยนะคุณแฟน! 🥰</p>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันทำให้ปุ่ม "ไม่ใช่" วิ่งหนี
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('mainCard');
+            
+            // คำนวณพื้นที่ขอบเขตที่ปุ่มสามารถวิ่งไปได้ภายใน Card
+            const maxWidth = container.clientWidth - noBtn.clientWidth - 40;
+            const maxHeight = container.clientHeight - noBtn.clientHeight - 40;
+            
+            const randomX = Math.floor(Math.random() * maxWidth) + 20;
+            const randomY = Math.floor(Math.random() * maxHeight) + 20;
+            
+            // ย้ายปุ่มไปตำแหน่งใหม่
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // ฟังก์ชันสลับหน้าเมื่อกด "ใช่ดิ"
+        function showSweetWords() {
+            document.getElementById('questionStage').style.display = 'none';
+            document.getElementById('sweetStage').style.display = 'block';
+            
+            // สร้างเอฟเฟกต์หัวใจโปรยลงมาเพิ่มความหวาน
+            for (let i = 0; i < 20; i++) {
+                createHeart();
+            }
+        }
+
+        // โค้ดเสริมสำหรับปล่อยหัวใจลอย
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerText = '💗';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animation = `fadeUp ${Math.random() * 2 + 2}s linear forwards`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+    </style>
+
+    <style>
+        /* สไตล์เสริมสำหรับแอนิเมชันหัวใจลอย */
+        @keyframes fadeUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</body>
+</html>
